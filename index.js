@@ -5,6 +5,9 @@ import {
   tail,
 } from 'ramda';
 
+// TODO: Remove this
+import heroRows from './heroRows.json';
+
 const parseHeroRow = (heroRow) => {
   const [
     colTitle,
@@ -41,11 +44,11 @@ const parseHeroRow = (heroRow) => {
   };
 }
 
-fetch('http://feheroes.wiki/Stats_Table')
-  .then(response => response.text())
-  .then(html => {
-    const heroRows = html.match(/<tr>((.|\n)*?)<\/tr>/g);
+// fetch('http://feheroes.wiki/Stats_Table')
+//   .then(response => response.text())
+//   .then(html => {
+//     const heroRows = html.match(/<tr>((.|\n)*?)<\/tr>/g);
     const heroes = tail(heroRows).map(parseHeroRow);
 
     fs.writeFileSync('./lib/stats.json', JSON.stringify(heroes, null, 2));
-  });
+//   });
